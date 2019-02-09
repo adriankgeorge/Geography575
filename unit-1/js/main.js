@@ -20,13 +20,13 @@ function cities(){
 			population: 24180000
 		},
 		{
-			city: 'Chicago',
-			population: 2716000
+			city: 'Wilmette',
+			population: 27418
 		}
 	];
 
 	//append the table element to the div
-	$("mydiv").append("<table>");
+	$("#mydiv").append("<table>");
 
 	//append a header row to the table
 	$("table").append("<tr>");
@@ -40,25 +40,26 @@ function cities(){
         var rowHtml = "<tr><td>" + cityPop[i].city + "</td><td>" + cityPop[i].population + "</td></tr>";
         //add the row's html string to the table
         $("table").append(rowHtml);
-    };
 
+    };
+		// Runs functions
     addColumns(cityPop);
-    addEvents();
+    addEvents(cityPop);
 
 };
-
+// Function to add city size column to table
 function addColumns(cityPop){
-
+		//Loops through each city
     $('tr').each(function(i){
-
-			var citySize;
-
+			// Puts column header in first row
     	if (i == 0){
 
-    		$("this").append('<th>' + citySize + '</th>');
+    		$(this).append('<th>City Size</th>');
     	} else {
+				// Assigns city size category based on population
+				var citySize;
 
-    		if (cityPop[i-1].population < 100000){
+				if (cityPop[i-1].population < 100000){
     			citySize = 'Small';
 
     		} else if (cityPop[i-1].population < 500000){
@@ -67,35 +68,37 @@ function addColumns(cityPop){
     		} else {
     			citySize = 'Large';
     		};
-
-    		$("this").append('<td>' + citySize + '</td>');
+				// Appends city size category to row
+    		$(this).append('<td>' + citySize + '</td>');
     	};
     });
 };
-
+// Adds function for the table to turn diferent colors when you mouse over
 function addEvents(){
 
 	$('table').mouseover(function(){
 
 		var color = "rgb(";
-
-		for (var i=0; i<3; i++){
-
+		// For loop until j = 2
+		for (var j=0; j<3; j++){
+			// Returns a floating-point, pseudo-random number in the range 0–1,
+			// returns the value of a number rounded to the nearest integer. and multiplies by 255
 			var random = Math.round(Math.random() * 255);
-
-			color += "random";
-
-			if (i<2){
+			// Adds number to color variable
+			color += random;
+			// Adds comma to color variable
+			if (j<2){
 				color += ",";
-
+			// Adds closing parentheses to color variable
 			} else {
 				color += ")";
 		};
-
-		$('this').css('color', color);
+		// Assigns color to object based on randomly assigned values
+		$(this).css('color', color);
 	}});
 
-	function clickme(){
+// Adds function for popup to appear when you click table
+function clickme(){
 
 		alert('Hey, you clicked me!');
 	};
@@ -104,4 +107,4 @@ function addEvents(){
 };
 
 //call the initialize function when the document has loaded
-$('document').ready(initialize);
+$( document ).ready( initialize );
