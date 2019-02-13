@@ -121,8 +121,12 @@ function jQueryAjax(){
     });
 };
 
+var mydata = jQueryAjax();
+
+console.log(mydata); //the jQuery XMLHttpRequest object
+
 //define callback function
-function callback(response, status, mydata){
+function callback(response, status, jqXHRobject){
     // Prints file in browser
     console.log("GeoJSON loaded");
 };
@@ -130,11 +134,14 @@ function callback(response, status, mydata){
 //call the initialize function when the document has loaded
 $(document).ready(jQueryAjax);
 
-// Creates variable
-var mydata;
+
 
 //define callback function
 function debugCallback(response){
+
+	// Creates variable
+	var mydata = response;
+
 	// Prints GeoJSON file content
 	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
 };
