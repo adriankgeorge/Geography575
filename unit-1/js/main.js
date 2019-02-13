@@ -133,26 +133,28 @@ $(document).ready(jQueryAjax);
 // Creates variable
 var mydata;
 
-
+//define callback function
 function debugCallback(response){
+	// Prints GeoJSON file content
 	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
 };
 
-
+// Defines function
 function debugAjax(){
-
+	// Loads MegaCities.json into environment
 	$.ajax("data/MegaCities.geojson", {
 		dataType: "json",
 		success: function(response){
 			debugCallback(mydata);
 		}
 	});
-
+	// Prints GeoJSON file content after line break
 	$(mydiv).append('<br>GeoJSON data:</br>' + JSON.stringify(mydata));
 };
-
+// Prints GeoJSON file content
 $(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
 
+// Initializes debugAjax function
 function initialize() {
 	debugAjax();
 } ;
