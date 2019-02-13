@@ -122,26 +122,28 @@ function jQueryAjax(){
 };
 
 //define callback function
-function callback(response, status, jqXHRobject){
+function callback(response, status, mydata){
     // Prints file in browser
     console.log("GeoJSON loaded");
 };
 
+//call the initialize function when the document has loaded
 $(document).ready(jQueryAjax);
 
+// Creates variable
 var mydata;
 
+
 function debugCallback(response){
-	console.log("callbackcheck")
-	$("mydiv").append('GeoJSON data: ' + JSON.stringify(mydata));
+	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
 };
+
 
 function debugAjax(){
 
 	$.ajax("data/MegaCities.geojson", {
 		dataType: "json",
 		success: function(response){
-
 			debugCallback(mydata);
 		}
 	});
@@ -150,3 +152,7 @@ function debugAjax(){
 };
 
 $(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
+
+function initialize() {
+	debugAjax();
+} ;
