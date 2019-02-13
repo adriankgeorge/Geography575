@@ -1,6 +1,8 @@
 //initialize function called when the script loads
+// Calls first functions to run
 function initialize() {
 	cities();
+	debugAjax();
 } ;
 
 //function to create a table with cities and their populations
@@ -109,59 +111,30 @@ function clickme(){
 //call the initialize function when the document has loaded
 $( document ).ready( initialize );
 
-
-
-
-//define AJAX function
-function jQueryAjax(){
-    //basic jQuery ajax method
-    $.ajax("data/MegaCities.geojson", {
-        dataType: "json",
-        success: callback
-    });
-};
-
-var mydata = jQueryAjax();
-
-console.log(mydata); //the jQuery XMLHttpRequest object
-
 //define callback function
-function callback(response, status, jqXHRobject){
-    // Prints file in browser
-    console.log("GeoJSON loaded");
-};
-
-//call the initialize function when the document has loaded
-$(document).ready(jQueryAjax);
-
-
-
-//define callback function
-function debugCallback(response){
-
-	// Creates variable
-	var mydata = response;
-
-	// Prints GeoJSON file content
+function debugCallback(mydata){
+	// Prints GeoJSON file content as string
 	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
 };
 
 // Defines function
 function debugAjax(){
-	// Loads MegaCities.json into environment
+	// Creates variable
+	var mydata;
+
+	// Loads json file into environment
 	$.ajax("data/MegaCities.geojson", {
 		dataType: "json",
 		success: function(response){
+			// Defines response as mydata variable
+			mydata = response;
+			// Prints GeoJSON file in console
+			console.log('This loads: ' + JSON.stringify(mydata));
+			// Calls callback function
 			debugCallback(mydata);
 		}
 	});
-	// Prints GeoJSON file content after line break
-	$(mydiv).append('<br>GeoJSON data:</br>' + JSON.stringify(mydata));
 };
-// Prints GeoJSON file content
-$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
-
-// Initializes debugAjax function
-function initialize() {
-	debugAjax();
-} ;
+// Prints that GeoJSON file is undefined in console
+// Because it's outside function
+console.log('mydata is undefined: ' + typeof mydata);
