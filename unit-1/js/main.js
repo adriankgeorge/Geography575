@@ -108,3 +108,45 @@ function clickme(){
 
 //call the initialize function when the document has loaded
 $( document ).ready( initialize );
+
+
+
+
+//define AJAX function
+function jQueryAjax(){
+    //basic jQuery ajax method
+    $.ajax("data/MegaCities.geojson", {
+        dataType: "json",
+        success: callback
+    });
+};
+
+//define callback function
+function callback(response, status, jqXHRobject){
+    // Prints file in browser
+    console.log("GeoJSON loaded");
+};
+
+$(document).ready(jQueryAjax);
+
+var mydata;
+
+function debugCallback(response){
+	console.log("callbackcheck")
+	$("mydiv").append('GeoJSON data: ' + JSON.stringify(mydata));
+};
+
+function debugAjax(){
+
+	$.ajax("data/MegaCities.geojson", {
+		dataType: "json",
+		success: function(response){
+
+			debugCallback(mydata);
+		}
+	});
+
+	$(mydiv).append('<br>GeoJSON data:</br>' + JSON.stringify(mydata));
+};
+
+$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
